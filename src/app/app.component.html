@@ -1,0 +1,368 @@
+<!-- As a heading -->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-light blue-grey lighten-4 justify-content-between">
+    <logo>
+        <span class="navbar-brand">Simulacion (Ejercicio 20) - Ezequiel Fernandez</span>
+    </logo>
+    <links class="form-inline">
+        <form class="form-inline waves-light waves-light ml-auto" mdbRippleRadius>
+            <button type="button" class="btn btn-indigo waves-light float-left" data-toggle="modal" data-target="#distribuciones" (click)="distribuciones.show()"
+                mdbRippleRadius>Distribuciones</button>
+            <button type="button" id="btnResultado" class="btn btn-primary waves-light float-right" data-toggle="modal" data-target="#resultadosModal" (click)="resultadosModal.show()"
+                mdbRippleRadius>Ver Resultados</button>
+        </form>
+    </links>
+</mdb-navbar>
+
+<!-- <button type="button" class="btn btn-primary waves-light" data-toggle="modal" data-target="#simulaciones" (click)="demoBasic.show()" mdbRippleRadius>Small modal</button> -->
+
+<!-- Modal Distribucion -->
+<div mdbModal #distribuciones="mdb-modal" class="modal fade" id="distribuciones" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel">Distribuciones de Frecuencia</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="distribuciones.hide()">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <!--Table Demanda Diaria-->
+                        <table class="table table-sm">
+                            <thead class="blue-grey lighten-4">
+                                <tr><th>Demanda Diaria</th><th>Probabilidad</th><th>Intervalo</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><th scope="row">0</th><td>0,05</td><td>0.00 - 0.04</td></tr>
+                                <tr><th scope="row">1</th><td>0,20</td><td>0.04 - 0.24</td></tr>
+                                <tr><th scope="row">2</th><td>0,40</td><td>0.24 - 0.64</td></tr>
+                                <tr><th scope="row">3</th><td>0,15</td><td>0.64 - 0.79</td></tr>
+                                <tr><th scope="row">4</th><td>0,10</td><td>0.79 - 0.89</td></tr>
+                                <tr><th scope="row">5</th><td>0,05</td><td>0.89 - 0.94</td></tr>
+                                <tr><th scope="row">6</th><td>0,05</td><td>0.94 - 1</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col">
+                        <!--Table Plazo en dias-->
+                        <table class="table table-sm">
+                            <thead class="blue-grey lighten-4">
+                                <tr><th>Plazo en dias</th><th>Probabilidad</th><th>Intervalo</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><th scope="row">0</th><td>0,10</td><td>0.00 - 0.09</td></tr>
+                                <tr><th scope="row">1</th><td>0,20</td><td>0.09 - 0.29</td></tr>
+                                <tr><th scope="row">2</th><td>0,30</td><td>0.29 - 0.59</td></tr>
+                                <tr><th scope="row">3</th><td>0,30</td><td>0.59 - 0.89</td></tr>
+                                <tr><th scope="row">4</th><td>0,05</td><td>0.89 - 0.94</td></tr>
+                                <tr><th scope="row">5</th><td>0,05</td><td>0.94 - 1</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm waves-light" data-dismiss="modal" (click)="distribuciones.hide()" mdbRippleRadius>Cerrar</button>
+                <!-- <button type="button" class="btn btn-primary btn-sm waves-light" mdbRippleRadius>Guardar Cambios</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Resultados -->
+<div mdbModal #resultadosModal="mdb-modal" class="modal fade" id="resultadosModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-fluid" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel">Resultados</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resultadosModal.hide()">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 500px; overflow-y: scroll;">
+                <table class="table table-hover" *ngIf="resultados.length > 0;else noResultado">
+                    <thead class="blue-grey lighten-4 table-bordered">
+                        <tr>
+                            <th rowspan="2">Simulacion</th>
+                            <th rowspan="2">Cant. Semanas</th>
+                            <th rowspan="2">Cant. Dias</th>
+                            <th colspan="3">Inventario</th>
+                            <th colspan="3">Pedidos</th>
+                            <th rowspan="2">Costo Total</th>
+                            <th rowspan="2">Costo Por Semana</th>
+                            <th rowspan="2">Costo Por Dia</th>
+                        </tr>
+                        <tr>
+                            <th>Costo Stock</th>
+                            <th>Costo Agotamiento</th>
+                            <th>Stock inicial</th>
+                            <th>Costo Pedido</th>
+                            <th>Unidades por lote</th>
+                            <th>Stock Minimo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let sim of resultados; let i=index" [class.table-success]="sim[10] == menorCostoPorDia" [class.table-danger]="sim[10] == mayorCostoPorDia">
+                            <th scope="row">{{i + 1}}</th>
+                            <td>{{sim[0]}}</td>
+                            <td>{{sim[1]}}</td>
+                            <td>{{sim[2] | currency}}</td>
+                            <td>{{sim[3] | currency}}</td>
+                            <td>{{sim[4]}}</td>
+                            <td>{{sim[5] | currency}}</td>
+                            <td>{{sim[6]}}</td>
+                            <td>{{sim[7]}}</td>
+                            <td>{{sim[8] | currency}}</td>
+                            <td>{{sim[9] | currency}}</td>
+                            <td>{{sim[10] | currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!--Card Warning-->
+                <ng-template #noResultado>
+                    <div class="card red lighten-1 text-center z-depth-2">
+                        <div class="card-body">
+                            <p class="white-text mb-0">No se han encontrado Simulaciones cargadas.</p>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm waves-light" data-dismiss="modal" (click)="resultadosModal.hide()" mdbRippleRadius>Cerrar</button>
+                <!-- <button type="button" class="btn btn-primary btn-sm waves-light" mdbRippleRadius>Guardar Cambios</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <!-- <app-stock></app-stock> -->
+            <!--Panel-->
+            <div class="card">
+                <div class="card-header default-color lighten-1 white-text">
+                    <i class="fa fa-archive"></i> Stock</div>
+                <div class="card-body">
+                    <!-- <h4 class="card-title">Configuracion del Stock</h4> -->
+                    <br>
+                    <div class="md-form">
+                        <i class="fa fa-dollar prefix"></i>
+                        <label for="form2">Costo inventario (Por unidad por dia)</label>
+                        <input mdbActive [(ngModel)]="stock.costoInventario" type="number" id="costoInventario" class="form-control" min="0" (change)="checkInputs()">
+                    </div>
+                    <div class="md-form">
+                        <i class="fa fa-dollar prefix"></i>
+                        <label for="form2">Costo de agotamiento (Por unidad)</label>
+                        <input mdbActive [(ngModel)]="stock.costoAgotamiento" type="number" id="costoAgotamiento" class="form-control" min="0" (change)="checkInputs()">
+                    </div>
+                    <div class="md-form">
+                        <i class="fa fa-align-justify prefix"></i>
+                        <label for="form2">Inventario inicial</label>
+                        <input mdbActive [(ngModel)]="stock.inicial" type="number" id="inicial" class="form-control" min="0" (change)="checkInputs()">
+                    </div>
+                </div>
+            </div>
+            <!--/.Panel-->
+        </div>
+        <div class="col">
+            <!-- <app-pedido></app-pedido> -->
+            <!--Panel-->
+            <div class="card">
+                <div class="card-header success-color lighten-1 white-text">
+                    <i class="fa fa-truck"></i> Pedidos</div>
+                <div class="card-body">
+                    <!-- <h4 class="card-title">Configuracion de los Pedidos</h4> -->
+                    <br>
+                    <div class="md-form">
+                        <i class="fa fa-dollar prefix"></i>
+                        <label for="form2">Costo Pedido</label>
+                        <input mdbActive [(ngModel)]="pedido.costo" type="number" id="costo" class="form-control" min="1" (change)="checkInputs()">
+                    </div>
+                    <div class="md-form">
+                        <i class="fa fa-th prefix"></i>
+                        <label for="form2">Unidades por Lote</label>
+                        <input mdbActive [(ngModel)]="pedido.unidadesPorLote" type="number" id="unidadesPorLote" class="form-control" min="1" (change)="checkInputs()">
+                    </div>
+                    <div class="md-form">
+                        <i class="fa fa-sort-numeric-desc prefix"></i>
+                        <label for="form2">Stock igual o menor a</label>
+                        <input mdbActive [(ngModel)]="stock.minimo" type="number" id="minimo" class="form-control" min="0" (change)="checkInputs()">
+                    </div>
+                    <div class="form-group">
+                        <input mdbDeepDirective type="checkbox" id="pedidoPrimerDia" [(ngModel)]="pedidoPrimerDia">
+                        <label for="pedidoPrimerDia">Pedido Primer Día</label>
+                    </div>
+                </div>
+            </div>
+            <!--/.Panel-->
+        </div>
+        <div class="col">
+            <!--Panel-->
+            <div class="card">
+                <div class="card-header primary-color lighten-1 white-text">
+                    <i class="fa fa-cog"></i> Simulacion</div>
+                <div class="card-body">
+                    <!-- <h4 class="card-title">Special title treatment</h4> -->
+                    <!-- <a class="btn btn-success waves-light" mdbRippleRadius><i class="fa fa-play"></i></a> -->
+                    <div class="md-form">
+                        <i class="fa fa-calendar prefix"></i>
+                        <label for="form2">Cantidad de semanas a simular</label>
+                        <input mdbActive [(ngModel)]="configuracion.cantidadSemanas" type="number" id="cantidadSemanas" class="form-control" min="1"
+                            (change)="checkInputs()">
+                    </div>
+                    <br>
+                    <p class="card-text">Mostrar:</p>
+                    <!-- <br> -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="md-form">
+                                <i class="fa fa-calendar-o prefix"></i>
+                                <label for="form2">Desde la Semana</label>
+                                <input mdbActive [(ngModel)]="configuracion.semanaDesde" type="number" id="semanaDesde" class="form-control" min="1" max="{{configuracion.cantidadSemanas}}" (change)="checkInputs()">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="md-form">
+                                <i class="fa fa-calendar-o prefix"></i>
+                                <label for="form2">Hasta la Semana</label>
+                                <input mdbActive [(ngModel)]="configuracion.semanaHasta" type="number" id="semanaHasta" class="form-control" min="0" max="{{configuracion.cantidadSemanas}}" (change)="checkInputs()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md-form">
+                        <i class="fa fa-calendar-check-o prefix"></i>
+                        <label for="form2">Mostrar dias multiplos de</label>
+                        <input mdbActive [(ngModel)]="configuracion.diasMultiplo" type="number" id="diasMultiplo" class="form-control" min="1" (change)="checkInputs()">
+                    </div>
+                </div>
+            </div>
+            <!--/.Panel-->
+        </div>
+    </div>
+    <div class="row">
+        <button type="button" (click)="reiniciarValores()" class="btn btn-secondary waves-light" mdbRippleRadius><i class="fa fa-refresh"></i> Reiniciar</button>
+        <button type="button" (click)="simular()" class="btn btn-primary waves-light" mdbRippleRadius><i class="fa fa-play"></i> Simular</button>
+    </div>
+<!-- 
+    <div class="mat-sidenav-container" *ngIf="dataSource">
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="dia">
+                <mat-header-cell *matHeaderCellDef>Dia</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element[0]}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="stockInicial">
+                <mat-header-cell *matHeaderCellDef>Stock inicial</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element[1]}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="rndDemanda">
+                <mat-header-cell *matHeaderCellDef>RND Demanda</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element[2]}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="demanda">
+                <mat-header-cell *matHeaderCellDef>Demanda</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element[3]}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="rndPedido">
+                <mat-header-cell *matHeaderCellDef>RND Pedido</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element[4]}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="plazoPedido">
+                <mat-header-cell *matHeaderCellDef>Plazo Pedido</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element[5]}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="llegadaPedido">
+                <mat-header-cell *matHeaderCellDef>Llegada Pedido</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element[6]}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="stockFinal">
+                <mat-header-cell *matHeaderCellDef>Stock Final</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element[7]}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="costoStock">
+                <mat-header-cell *matHeaderCellDef>Costo Stock</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element[8]}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="diasAgotamiento">
+                <mat-header-cell *matHeaderCellDef>Dias Agotamiento</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element[9]}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="costoAgotamiento">
+                <mat-header-cell *matHeaderCellDef>Costo Agotamiento</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element[10]}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="costoTotal">
+                <mat-header-cell *matHeaderCellDef>Costo Total</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element[11]}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="costoSumatoria">
+                <mat-header-cell *matHeaderCellDef>Costo Sumatoria</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element[12]}} </mat-cell>
+            </ng-container> -->
+
+            <!-- <mat-header-row *matHeaderRowDef="columnasAMostrar"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columnasAMostrar;"></mat-row>
+        </mat-table> -->
+        <!-- [length]="simulacion.vectorEstado.length" -->
+        <!-- <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100, 1000, 10000]">
+        </mat-paginator>
+    </div> -->
+    <!-- <div class="row"> -->
+        <div class="row" *ngIf="simulacion.vectorEstado.length > 0">
+            <table class="table table-sm table-striped" *ngIf="simulacion.vectorEstado.length <= 12000;else masdocemil">
+                <thead class="mdb-color darken-3 text-white table-bordered">
+                    <tr>
+                        <th rowspan="2">Dia</th>
+                        <th rowspan="2">Stock Inicial</th>
+                        <th colspan="2">Demanda</th>
+                        <th colspan="4">Pedido</th>
+                        <th colspan="2">Stock</th>
+                        <th colspan="2">Agotamiento</th>
+                        <th colspan="2">Costo</th>
+                    </tr>
+                    <tr>
+                        <th>RND</th>
+                        <th>Demanda</th>
+                        <th>RND</th>
+                        <th>Plazo</th>
+                        <th>Dia Entrega</th>
+                        <th>Costo</th>
+                        <th>Stock</th>
+                        <th>Costo</th>
+                        <th>Dias</th>
+                        <th>Costo</th>
+                        <th>Total</th>
+                        <th>Sumatoria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let sim of simulacion.vectorEstado">
+                        <th scope="row">{{sim[0]}}</th>
+                        <td>{{sim[1]}}</td>
+                        <td><code>{{sim[2]}}</code></td>
+                        <td>{{sim[3]}}</td>
+                        <td><code *ngIf="sim[4]">{{sim[4]}}</code></td>
+                        <td>{{sim[5]}}</td>
+                        <td>{{sim[6]}}</td>
+                        <td>{{sim[7] | currency}}</td>
+                        <td>{{sim[8]}}</td>
+                        <td>{{sim[9] | currency}}</td>
+                        <td>{{sim[10]}}</td>
+                        <td>{{sim[11] | currency}}</td>
+                        <td>{{sim[12] | currency}}</td>
+                        <td>{{sim[13] | currency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #masdocemil>
+                <div class="card danger-color-dark text-center z-depth-2" style="margin-left: 200px;">
+                    <div class="card-body">
+                        <p class="white-text mb-0">Visualizar mas de 12000 registro puede llegar a generar problemas. Por favor intente con otra configuración de visualización.</p>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+</div>

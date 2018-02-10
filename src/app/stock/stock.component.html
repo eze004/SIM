@@ -1,0 +1,24 @@
+<!--Panel-->
+<div class="card">
+  <div class="card-header default-color lighten-1 white-text"><i class="fa fa-archive"></i> Stock</div>
+  <div class="card-body">
+    <!-- <h4 class="card-title">Configuracion del Stock</h4> -->
+    <br>
+    <div class="md-form">
+      <i class="fa fa-dollar prefix"></i>
+      <label for="form2">Costo inventario (Por unidad por dia)</label>
+      <input mdbActive [(ngModel)]="costoInventario" type="number" id="form2" class="form-control">
+    </div>
+    <div class="md-form">
+      <i class="fa fa-dollar prefix"></i>
+      <label for="form2">Costo de agotamiento (Por unidad)</label>
+      <input mdbActive [(ngModel)]="costoAgotamiento" type="number" id="form2" class="form-control">
+    </div>
+    <div class="md-form">
+      <i class="fa fa-align-justify prefix"></i>
+      <label for="form2">Inventario inicial</label>
+      <input mdbActive [(ngModel)]="stockInicial" type="number" id="form2" class="form-control">
+    </div>
+  </div>
+</div>
+<!--/.Panel-->

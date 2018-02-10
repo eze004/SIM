@@ -1,0 +1,24 @@
+<!--Panel-->
+<div class="card">
+    <div class="card-header success-color lighten-1 white-text"><i class="fa fa-truck"></i> Pedidos</div>
+    <div class="card-body">
+        <!-- <h4 class="card-title">Configuracion de los Pedidos</h4> -->
+        <br>
+        <div class="md-form">
+            <i class="fa fa-dollar prefix"></i>
+            <label for="form2">Costo Pedido</label>
+            <input mdbActive [(ngModel)]="pedido.costoPedido" type="number" id="form2" class="form-control">
+        </div>
+        <div class="md-form">
+            <i class="fa fa-th prefix"></i>
+            <label for="form2">Unidades por Lote</label>
+            <input mdbActive [(ngModel)]="pedido.unidadesPorLote" type="number" id="form2" class="form-control">
+        </div>
+        <div class="md-form">
+            <i class="fa fa-sort-numeric-desc prefix"></i>
+            <label for="form2">Stock igual o menor a</label>
+            <input mdbActive [(ngModel)]="pedido.stockMinimo" type="number" id="form2" class="form-control">
+        </div>
+    </div>
+</div>
+<!--/.Panel-->

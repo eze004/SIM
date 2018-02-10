@@ -1,0 +1,37 @@
+<!--Panel-->
+<div class="card">
+    <div class="card-header primary-color lighten-1 white-text"><i class="fa fa-cog"></i> Simulacion</div>
+    <div class="card-body">
+        <!-- <h4 class="card-title">Special title treatment</h4> -->
+        <!-- <a class="btn btn-success waves-light" mdbRippleRadius><i class="fa fa-play"></i></a> -->
+        <div class="md-form">
+            <i class="fa fa-calendar prefix"></i>
+            <label for="form2">Cantidad de semanas a simular</label>
+            <input mdbActive [(ngModel)]="cantidadSemanas" type="number" id="form2" class="form-control" mdbInputValidate>
+        </div>
+        <p class="card-text">Mostrar:</p>
+        <!-- <br> -->
+        <div class="row">
+            <div class="col">
+                <div class="md-form">
+                    <i class="fa fa-calendar-o prefix"></i>
+                    <label for="form2">Desde la Semana</label>
+                    <input mdbActive [(ngModel)]="semanaDesde" type="number" id="form2" class="form-control" min="1" mdbInputValidate>
+                </div>
+            </div>
+            <div class="col">
+                <div class="md-form">
+                    <i class="fa fa-calendar-o prefix"></i>
+                    <label for="form2">Hasta la Semana</label>
+                    <input mdbActive [(ngModel)]="semanaHasta" type="number" id="form2" class="form-control" min="0" mdbInputValidate>
+                </div>
+            </div>
+        </div>
+        <div class="md-form">
+            <i class="fa fa-calendar-check-o prefix"></i>
+            <label for="form2">Mostrar dias multiplos de</label>
+            <input mdbActive [(ngModel)]="diasMultiplo" type="number" id="form2" class="form-control" min="1" mdbInputValidate>
+        </div>
+    </div>
+</div>
+<!--/.Panel-->
