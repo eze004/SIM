@@ -51,11 +51,18 @@ pero cuando el stock llegue a 5 unidades o menos.
 Este proyecto fue desarrollado usando [MDB](https://mdbootstrap.com/angular) para Angular.
 
 Para desplegar este proyecto se debe tener [Angular](https://angular.io/guide/quickstart) instalado.
+Para eso siga los siguientes pasos:
+1. Instale [NodeJS](https://nodejs.org/en/download/).
+2. Ejecute el comando `npm install -g @angular/cli`.
 
-### Compilacion y Ejecucion
+### Compilacion y Despliegue
 
-Ejecutar el comando `ng serve` en la carpeta del proyecto.
+Para levantar la aplicación primero debe instalar las dependencias.
+Dentro de la carpeta del proyecto ejecute el comando `npm install`.
 
-Navegar a la dirección `http://localhost:4200/`.
+Luego ejecute el comando `ng serve -o`.
+Esto levantará la aplicación y la abrirá en una nueva pestaña en el browser.
 
-La aplicacion deberá estar iniciada y lista para ser usada.
+De no ser asi, puede navegar a la dirección `http://localhost:4200/`.
+
+La aplicación deberá estar iniciada y lista para ser usada.
